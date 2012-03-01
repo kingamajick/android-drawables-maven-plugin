@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+			<role-hint>android-drawables</role-hint>
+			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+			<configuration>
+				<phases>
+					<generate-resources>
+						com.github.kingamajick.admp:android-drawables-maven-plugin:rasterize
+					</generate-resources>
+					<process-resources>
+						com.github.kingamajick.admp:android-drawables-maven-plugin:static-resources
+					</process-resources>
+					<package>
+						org.apache.maven.plugins:maven-jar-plugin:jar
+					</package>
+					<install>
+						org.apache.maven.plugins:maven-install-plugin:install
+					</install>
+					<deploy>
+						org.apache.maven.plugins:maven-deploy-plugin:deploy
+					</deploy>
+				</phases>
+			</configuration>
+		</component>
+	</components>
+</component-set>
