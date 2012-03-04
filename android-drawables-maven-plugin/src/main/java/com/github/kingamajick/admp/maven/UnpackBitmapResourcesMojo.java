@@ -40,7 +40,7 @@ import com.github.kingamajick.admp.maven.beans.DrawableArtifact;
 import com.github.kingamajick.admp.maven.util.Constants;
 
 /**
- * Mojo to unpack the bitmap resources contained in one or more 'android-drawable' artifacts.
+ * Unpack the bitmap resources contained in one or more 'android-drawables' artifacts.
  * 
  * @author R King
  * 
@@ -56,26 +56,33 @@ public class UnpackBitmapResourcesMojo extends AbstractMojo {
 
 	/**
 	 * @parameter expression = "${localRepository}"
+	 * @readonly
 	 */
 	private ArtifactRepository localRepository;
 
 	/**
 	 * @parameter expression = "${project.remoteArtifactRepositories}"
+	 * @readonly
 	 */
 	private List<ArtifactRepository> remoteRepositories;
 
 	/**
+	 * The location to unpack the drawables too.
+	 * 
 	 * @parameter expression = "${unpackLocation}" default-value = "${project.build.directory}/android-drawables"
 	 */
 	private File unpackLocation;
 
 	/**
+	 * A list of {@link DrawableArtifact}s to unpack.
+	 * 
 	 * @parameter expression = "${drawableArtifacts}"
 	 */
 	private List<DrawableArtifact> drawableArtifacts;
 
 	/**
 	 * @parameter expression = "${cleanDrawableLocations} default-value = "false"
+	 * @readonly
 	 */
 	private boolean cleanDrawableLocations;
 

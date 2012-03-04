@@ -1,0 +1,55 @@
+<FindBugsFilter>
+	<!-- Ignore warnings from the HelpMojo classes -->
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.HelpMojo" />
+		<Field name="goal" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.HelpMojo" />
+		<Field name="detail" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<!-- Maven injected fields -->
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.ProcessBitmapResourcesMojo" />
+		<Field name="resources" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.ProcessBitmapResourcesMojo" />
+		<Field name="resources" />
+		<Bug pattern="NP_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.ProcessBitmapResourcesMojo" />
+		<Field name="targetDir" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.RasterizeSVGMojo" />
+		<Field name="densities" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.RasterizeSVGMojo" />
+		<Field name="densities" />
+		<Bug pattern="NP_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.RasterizeSVGMojo" />
+		<Field name="rasterizedType" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.RasterizeSVGMojo" />
+		<Field name="svgDirectory" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+	<Match>
+		<Class name="com.github.kingamajick.admp.maven.RasterizeSVGMojo" />
+		<Field name="targetDir" />
+		<Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
+
+</FindBugsFilter>

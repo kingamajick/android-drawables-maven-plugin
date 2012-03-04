@@ -59,12 +59,6 @@ import com.github.kingamajick.admp.maven.util.Constants;
  * <li>nodpi</li>
  * <li>tvdpi</li>
  * </ul>
- * To use a non-default configuration it is necessary to supply the following configurations
- * 
- * <pre>
- * &ltconfiguration&gt
- * in the {@link RasterizeSVGMojo#svgDirectory}. A PNG file is generated from each SVG for each of the {@link Density} specified in the
- * {@link RasterizeSVGMojo#densities} list. By default the following densities are retrieved from {@link Density#defaults(List)}.
  * 
  * @author R King
  * 
@@ -80,21 +74,34 @@ public class RasterizeSVGMojo extends AbstractMojo {
 	private TranscoderFactory transcoderFactory;
 
 	/**
+	 * The directory containing the SVG resource to be rasterized.
+	 * 
 	 * @parameter expression="${svgDirectory}" default-value = "src/main/svg"
 	 */
 	File svgDirectory;
 
 	/**
 	 * @parameter expression="${project.build.outputDirectory}/res"
+	 * @readonly
 	 */
 	File targetDir;
 
 	/**
+	 * A list of {@link Density}s, if none are specified the following configuration is used:
+	 * <ul>
+	 * <li>name : 'drawable-ldpi', scale-factor : 0.75f</li>
+	 * <li>name : 'drawable-mdpi', scale-factor : 1.00f</li>
+	 * <li>name : 'drawable-hdpi', scale-factor : 1.50f</li>
+	 * <li>name : 'drawable-xhdpi', scale-factor : 2.00f</li>
+	 * </ul>
+	 * 
 	 * @parameter expression="${densities}"
 	 */
 	List<Density> densities;
 
 	/**
+	 * The type to raterized the SVGs to. The available formats are <code>png</code> and <code>jpg</code>
+	 * 
 	 * @parameter expression="${rasterizedType}" default-value = "png"
 	 */
 	String rasterizedType;

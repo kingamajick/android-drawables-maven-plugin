@@ -53,11 +53,13 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 
 	/**
 	 * @parameter expression="${project.resources}"
+	 * @readonly
 	 */
 	List<Resource> resources;
 
 	/**
 	 * @parameter expression="${project.build.outputDirectory}/res"
+	 * @readonly
 	 */
 	File targetDir;
 
@@ -91,8 +93,8 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Copies all images resources ({@link Constants#IMAGE_TYPES}) found in the list of files (and its sub directories) to the output directory. All
-	 * images will be given lower case names and any images contained in sub directories will be named as follows:
+	 * Copies all images resources ({@link Constants#IMAGE_TYPES}) found in the list of files (and its sub directories) to the output
+	 * directory. All images will be given lower case names and any images contained in sub directories will be named as follows:
 	 * ${subDir1}_${subDir2}_${imageFileName}, these steps guarantee compatibility with android resource file names restrictions.
 	 * 
 	 * @param outputDir
@@ -107,10 +109,10 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Copies the image resources ({@link Constants#IMAGE_TYPES}) to the output directory prefixing the file name with the file name prefix argument.
-	 * The file name will also be in lower case, these steps guarantee compatibility with android resource file names restrictions. If a sub
-	 * directory is discovered in the list of files, this method will be recursively called with the file name prefix of the directory name
-	 * postfixed with a '_'.
+	 * Copies the image resources ({@link Constants#IMAGE_TYPES}) to the output directory prefixing the file name with the file name prefix
+	 * argument. The file name will also be in lower case, these steps guarantee compatibility with android resource file names
+	 * restrictions. If a sub directory is discovered in the list of files, this method will be recursively called with the file name prefix
+	 * of the directory name postfixed with a '_'.
 	 * 
 	 * @param outputDir
 	 *            The location to copy the files to.
