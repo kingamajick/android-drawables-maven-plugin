@@ -120,12 +120,6 @@ public class UnpackBitmapResourcesMojo extends AbstractMojo {
 				throw new MojoFailureException("Unable to create output location " + outputLocation.getAbsolutePath());
 			}
 		}
-		try {
-			FileUtils.cleanDirectory(outputLocation);
-		}
-		catch (IOException e) {
-			throw new MojoFailureException("Unable to clean output location " + outputLocation.getAbsolutePath(), e);
-		}
 		for (Artifact artifact : artifacts) {
 			File artifactFile = artifact.getFile();
 			try {
