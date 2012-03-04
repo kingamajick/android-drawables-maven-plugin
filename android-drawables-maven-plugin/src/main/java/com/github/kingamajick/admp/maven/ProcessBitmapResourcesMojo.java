@@ -26,6 +26,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.FileUtils;
 
 import com.github.kingamajick.admp.maven.util.Asserts;
+import com.github.kingamajick.admp.maven.util.Constants;
 
 /**
  * 
@@ -51,19 +52,6 @@ import com.github.kingamajick.admp.maven.util.Asserts;
 public class ProcessBitmapResourcesMojo extends AbstractMojo {
 
 	/**
-	 * Array of directory names to copy the contents of in the root folder.
-	 */
-	final static String[] STATIC_IMAGE_DIR = { "ldpi", "mdpi", "hdpi", "xhdpi", "nodpi", "tvdpi" };
-	/**
-	 * Array of acceptable file types
-	 */
-	final static String[] IMAGE_TYPES = { ".png", ".jpg", ".gif" };
-	/**
-	 * Drawable directory prefix
-	 */
-	final static String DRAWABLE_PREFIX = "drawable-";
-
-	/**
 	 * @parameter expression="${project.resources}"
 	 */
 	List<Resource> resources;
@@ -84,11 +72,11 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 		}
 		for (Resource resource : this.resources) {
 			File resourcesDir = new File(resource.getDirectory());
-			for (String imageResolutionDirName : STATIC_IMAGE_DIR) {
+			for (String imageResolutionDirName : Constants.STATIC_IMAGE_DIR) {
 				File imageResolutionDir = new File(resourcesDir, imageResolutionDirName);
 				if (imageResolutionDir.exists() || imageResolutionDir.isDirectory()) {
 					try {
-						copyImageResources(new File(this.targetDir, DRAWABLE_PREFIX + imageResolutionDirName), imageResolutionDir);
+						copyImageResources(new File(this.targetDir, Constants.DRAWABLE_PREFIX + imageResolutionDirName), imageResolutionDir);
 					}
 					catch (IOException e) {
 						throw new MojoFailureException("Unable to copy static resources", e);
@@ -103,7 +91,7 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Copies all images resources ({@link #IMAGE_TYPES}) found in the list of files (and its sub directories) to the output directory. All
+	 * Copies all images resources ({@link Constants#IMAGE_TYPES}) found in the list of files (and its sub directories) to the output directory. All
 	 * images will be given lower case names and any images contained in sub directories will be named as follows:
 	 * ${subDir1}_${subDir2}_${imageFileName}, these steps guarantee compatibility with android resource file names restrictions.
 	 * 
@@ -119,7 +107,7 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Copies the image resources ({@link #IMAGE_TYPES}) to the output directory prefixing the file name with the file name prefix argument.
+	 * Copies the image resources ({@link Constants#IMAGE_TYPES}) to the output directory prefixing the file name with the file name prefix argument.
 	 * The file name will also be in lower case, these steps guarantee compatibility with android resource file names restrictions. If a sub
 	 * directory is discovered in the list of files, this method will be recursively called with the file name prefix of the directory name
 	 * postfixed with a '_'.
@@ -148,7 +136,7 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Checks if the file ends with an extension specified in {@link #IMAGE_TYPES}.
+	 * Checks if the file ends with an extension specified in {@link Constants#IMAGE_TYPES}.
 	 * 
 	 * @param fileName
 	 * @return
@@ -157,7 +145,7 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 		Asserts.notNull(file, "file");
 
 		String fileName = file.getName().toLowerCase();
-		for (String imageType : IMAGE_TYPES) {
+		for (String imageType : Constants.IMAGE_TYPES) {
 			if (fileName.endsWith(imageType)) {
 				return true;
 			}

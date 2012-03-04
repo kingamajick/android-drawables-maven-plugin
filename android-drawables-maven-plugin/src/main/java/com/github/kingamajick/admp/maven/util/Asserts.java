@@ -35,15 +35,4 @@ public class Asserts {
 		}
 	}
 
-	/**
-	 * Throws an {@link IllegalArgumentException} if the number is negative. The exception message will include the name specified.
-	 * 
-	 * @param o
-	 * @param name
-	 */
-	public static void positive(final double d, final String name) {
-		if (d < 0) {
-			throw new IllegalArgumentException(name + "must be postive");
-		}
-	}
 }

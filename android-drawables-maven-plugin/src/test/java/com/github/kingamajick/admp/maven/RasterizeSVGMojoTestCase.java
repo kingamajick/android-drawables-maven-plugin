@@ -28,14 +28,14 @@ import javax.imageio.ImageIO;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.fest.reflect.core.Reflection;
 import org.junit.Test;
 
-import com.github.kingamajick.admp.maven.RasterizeSVGMojo;
 import com.github.kingamajick.admp.maven.beans.Density;
+import com.github.kingamajick.admp.maven.transcoder.TranscoderFactory;
 
 /**
  * @author R King
@@ -43,6 +43,7 @@ import com.github.kingamajick.admp.maven.beans.Density;
  */
 public class RasterizeSVGMojoTestCase {
 
+	private final static String PNG_TYPE = "png";
 	private final static File TEST_DIR = new File("target/test-classes/rasterize-svgs/");
 	private Log mockLogger = createNiceMock(Log.class);
 
@@ -87,6 +88,7 @@ public class RasterizeSVGMojoTestCase {
 		Reflection.field("svgDirectory").ofType(File.class).in(mojo).set(svgDir);
 		Reflection.field("targetDir").ofType(File.class).in(mojo).set(targetDir);
 		Reflection.field("densities").ofType(List.class).in(mojo).set(new ArrayList<Density>());
+		Reflection.field("rasterizedType").ofType(String.class).in(mojo).set(PNG_TYPE);
 
 		// @formatter:off
 		PNGExpectationHolder[] expectedPNGs = {
@@ -121,7 +123,8 @@ public class RasterizeSVGMojoTestCase {
 		File svgDir = new File(testBaseDir, "src/main/svg");
 		File targetDir = new File(testBaseDir, "target/classes/res");
 
-		PNGTranscoder mockTranscoder = createNiceMock(PNGTranscoder.class);
+		TranscoderFactory mockTranscoderFactor = createMock(TranscoderFactory.class);
+		ImageTranscoder mockTranscoder = createNiceMock(ImageTranscoder.class);
 
 		RasterizeSVGMojo mojo = new RasterizeSVGMojo();
 		mojo.setLog(this.mockLogger);
@@ -129,16 +132,18 @@ public class RasterizeSVGMojoTestCase {
 		Reflection.field("svgDirectory").ofType(File.class).in(mojo).set(svgDir);
 		Reflection.field("targetDir").ofType(File.class).in(mojo).set(targetDir);
 		Reflection.field("densities").ofType(List.class).in(mojo).set(new ArrayList<Density>());
-		Reflection.field("transcoder").ofType(PNGTranscoder.class).in(mojo).set(mockTranscoder);
+		Reflection.field("rasterizedType").ofType(String.class).in(mojo).set(PNG_TYPE);
+		Reflection.field("transcoderFactory").ofType(TranscoderFactory.class).in(mojo).set(mockTranscoderFactor);
 
 		// Expectation
+		mockTranscoderFactor.create(PNG_TYPE);
+		expectLastCall().andReturn(mockTranscoder);
 		mockTranscoder.transcode(anyObject(TranscoderInput.class), anyObject(TranscoderOutput.class));
 		expectLastCall().andThrow(new TranscoderException(""));
 
-		replay(mockTranscoder);
+		replay(mockTranscoderFactor, mockTranscoder);
 
 		// Execute
 		mojo.execute();
 	}
-
 }

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
@@ -36,6 +37,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.io.RawInputStreamFacade;
 
 import com.github.kingamajick.admp.maven.beans.DrawableArtifact;
+import com.github.kingamajick.admp.maven.util.Constants;
 
 /**
  * Mojo to unpack the bitmap resources contained in one or more 'android-drawable' artifacts.
@@ -72,12 +74,20 @@ public class UnpackBitmapResourcesMojo extends AbstractMojo {
 	 */
 	private List<DrawableArtifact> drawableArtifacts;
 
+	/**
+	 * @parameter expression = "${cleanDrawableLocations} default-value = "false"
+	 */
+	private boolean cleanDrawableLocations;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		if (this.cleanDrawableLocations) {
+
+		}
 		List<Artifact> artifacts = resolve(this.drawableArtifacts);
 		unpackArchive(this.unpackLocation, artifacts);
 	}
@@ -125,14 +135,22 @@ public class UnpackBitmapResourcesMojo extends AbstractMojo {
 			try {
 				ZipFile archiveFile = new ZipFile(artifactFile);
 				for (ZipEntry zipEntry : Collections.list(archiveFile.entries())) {
-					if (!zipEntry.isDirectory() && zipEntry.getName().endsWith(".png")) {
+					String entryName = zipEntry.getName();
+					if (zipEntry.isDirectory()) {
+						continue;
+					}
+					if (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(entryName))) {
 						InputStream is = archiveFile.getInputStream(zipEntry);
 						File destination = new File(outputLocation, zipEntry.getName());
 						if (destination.exists()) {
+							// TODO: Check if source and destination are different!
 							getLog().warn("Overwritting " + destination + ", this entry must appear more than once in the 'artifact-drawable' artifacts");
 						}
 						getLog().debug("Unpacking " + zipEntry.getName() + " -> " + destination);
 						FileUtils.copyStreamToFile(new RawInputStreamFacade(is), destination);
+					}
+					else {
+						getLog().debug("Ignoring entry " + entryName);
 					}
 				}
 

@@ -35,7 +35,7 @@ import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -43,7 +43,10 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.w3c.dom.Document;
 
 import com.github.kingamajick.admp.maven.beans.Density;
+import com.github.kingamajick.admp.maven.transcoder.TranscoderFactory;
+import com.github.kingamajick.admp.maven.transcoder.TranscoderFactoryException;
 import com.github.kingamajick.admp.maven.util.Asserts;
+import com.github.kingamajick.admp.maven.util.Constants;
 
 /**
  * Rasterizes any SVGs contained <code>${svgDirectory}</code> (default: <code>'src/main/svg'</code>) to
@@ -69,15 +72,12 @@ import com.github.kingamajick.admp.maven.util.Asserts;
  */
 public class RasterizeSVGMojo extends AbstractMojo {
 
-	private static final String SVG_POSTFIX = ".svg";
-	private static final String PNG_POSTFIX = ".png";
-
 	private UserAgent userAgent;
 	private DocumentLoader loader;
 	private BridgeContext context;
 	private GVTBuilder builder;
 	private SAXSVGDocumentFactory svgDocFactory;
-	private PNGTranscoder transcoder;
+	private TranscoderFactory transcoderFactory;
 
 	/**
 	 * @parameter expression="${svgDirectory}" default-value = "src/main/svg"
@@ -93,6 +93,11 @@ public class RasterizeSVGMojo extends AbstractMojo {
 	 * @parameter expression="${densities}"
 	 */
 	List<Density> densities;
+
+	/**
+	 * @parameter expression="${rasterizedType}" default-value = "png"
+	 */
+	String rasterizedType;
 
 	/**
 	 * Create a directory with the specified name, and all the necessary parent directories to do that.
@@ -121,7 +126,7 @@ public class RasterizeSVGMojo extends AbstractMojo {
 		this.context.setDynamicState(BridgeContext.DYNAMIC);
 		this.builder = new GVTBuilder();
 		this.svgDocFactory = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());
-		this.transcoder = new PNGTranscoder();
+		this.transcoderFactory = new TranscoderFactory();
 	}
 
 	/*
@@ -133,7 +138,13 @@ public class RasterizeSVGMojo extends AbstractMojo {
 		if (this.densities.size() == 0) {
 			Density.defaults(this.densities);
 		}
-
+		ImageTranscoder transcoder = null;
+		try {
+			transcoder = this.transcoderFactory.create(this.rasterizedType);
+		}
+		catch (TranscoderFactoryException e) {
+			throw new MojoExecutionException("Unable to create transcoder", e);
+		}
 		Map<String, File> svgsToProcess = getSVGsToProcess(this.svgDirectory);
 		for (Entry<String, File> svgToProcess : svgsToProcess.entrySet()) {
 			try {
@@ -143,18 +154,19 @@ public class RasterizeSVGMojo extends AbstractMojo {
 				Rectangle2D bounds = rootGN.getBounds();
 
 				for (Density density : this.densities) {
-					getLog().debug("Rasterizing " + svgToProcess.getValue() + " -> " + density.getName() + "/" + svgToProcess.getKey() + PNG_POSTFIX + " [" + density.getScaleFactor() + "]");
+					getLog().debug(
+							"Rasterizing " + svgToProcess.getValue() + " -> " + density.getName() + "/" + svgToProcess.getKey() + "." + this.rasterizedType + " [" + density.getScaleFactor() + "]");
 
 					File outputDir = createDirectory(this.targetDir, density.getName());
-					File outputFile = new File(outputDir, svgToProcess.getKey() + PNG_POSTFIX);
+					File outputFile = new File(outputDir, svgToProcess.getKey() + "." + this.rasterizedType);
 					outputFile.createNewFile();
 					OutputStream os = new FileOutputStream(outputFile);
 
 					TranscoderInput input = new TranscoderInput(svgDoc);
 					TranscoderOutput output = new TranscoderOutput(os);
 
-					this.transcoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, new Float(Math.ceil(density.getScaleFactor() * bounds.getWidth())));
-					this.transcoder.transcode(input, output);
+					transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(Math.ceil(density.getScaleFactor() * bounds.getWidth())));
+					transcoder.transcode(input, output);
 				}
 
 			}
@@ -196,8 +208,9 @@ public class RasterizeSVGMojo extends AbstractMojo {
 	void getSVGsToProcess(final Map<String, File> fileMappings, final File[] potentialSVGs, final String fileNamePrefix) {
 		for (File potentialSVG : potentialSVGs) {
 			String potentialSVGName = fileNamePrefix + potentialSVG.getName();
-			if (potentialSVG.isFile() && potentialSVG.getName().toLowerCase().endsWith(SVG_POSTFIX)) {
-				String outputFileName = potentialSVGName.substring(0, potentialSVGName.length() - SVG_POSTFIX.length());
+			if (potentialSVG.isFile() && potentialSVG.getName().toLowerCase().endsWith(Constants.SVG_FILE_TYPE)) {
+				// Output file name sans the extension
+				String outputFileName = potentialSVGName.substring(0, potentialSVGName.length() - Constants.SVG_FILE_TYPE.length());
 				getLog().debug("Mapping " + potentialSVG + " to " + outputFileName);
 				fileMappings.put(outputFileName, potentialSVG);
 			}
