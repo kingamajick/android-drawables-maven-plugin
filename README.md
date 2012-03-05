@@ -29,28 +29,26 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
 
 ### Creating a android-drawables artifact
 
-1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.
+1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.  
 ```
-    ...
-    <packaging>android-drawables</packaging>
-    ...
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>com.github.kingamajick.admp</groupId>
-          <artifactId>android-drawables-maven-plugin</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
-          <extensions>true</extensions>
-          <configuration>
-            <rasterizedType>[png|jpg]</rasterizedType>
-          </configuration>
-        </plugin>
-      </plugins>
-    </build>
-    ...
+<packaging>android-drawables</packaging>
+...
+<build>
+  <plugins>
+    <plugin>
+      <groupId>com.github.kingamajick.admp</groupId>
+      <artifactId>android-drawables-maven-plugin</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <extensions>true</extensions>
+      <configuration>
+        <rasterizedType>[png|jpg]</rasterizedType>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
 ```
 
-2. Create the following directory structure to store the drawable resources
+2. Create the following directory structure to store the drawable resources  
 ```
 src/main/svg/          <= Contains any SVG resources to be rasterized
 src/main/resources/    <= Contains any static resources
