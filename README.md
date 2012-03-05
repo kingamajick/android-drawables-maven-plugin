@@ -14,7 +14,7 @@ Maven 3.0.3+ installed, see http://maven.apache.org/download.html
 
 Snapshots of the android-drawables-maven-plugin are available from the Sonatype OSS Repository Hosting Service.  To use snapshots, add the following configuration to the pom.
 
-```xml
+```
 <repositories>
   <repository>
     <id>oss-sonatype</id>
@@ -30,7 +30,7 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
 ### Creating a android-drawables artifact
 
 1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.
-```xml 
+```
     ...
     <packaging>android-drawables</packaging>
     ...
@@ -100,7 +100,7 @@ Note, by doing this all densities will have to be specified as the defaults will
 ### Consuming a android-drawables artifact
 
 1. In the project to consume a ```android-drawables``` artifact, configure the POM as follows:
-```xml
+```
 <plugin>
   <groupId>com.github.kingamajick.admp</groupId>
   <artifactId>android-drawables-maven-plugin</artifactId>
