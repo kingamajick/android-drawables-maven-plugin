@@ -29,7 +29,8 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
 
 ### Creating a android-drawables artifact
 
-1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.  
+1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.
+
 ```
 <packaging>android-drawables</packaging>  
 ...  
