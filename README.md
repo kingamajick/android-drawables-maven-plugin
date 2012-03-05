@@ -31,7 +31,8 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
 
 1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.
 
-```
+    ```
+...
 <packaging>android-drawables</packaging>  
 ...  
 <build>
@@ -50,7 +51,8 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
 ```
 
 2. Create the following directory structure to store the drawable resources  
-```
+
+    ```
 src/main/svg/          <= Contains any SVG resources to be rasterized
 src/main/resources/    <= Contains any static resources
     |-- ldpi
@@ -81,7 +83,8 @@ The directories may contain sub folders (both for SVG resources and static resou
   </tr>
 </table>
 If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:
-```
+
+    ```
 <configuration>
   ...
   <densities>
@@ -99,7 +102,8 @@ Note, by doing this all densities will have to be specified as the defaults will
 ### Consuming a android-drawables artifact
 
 1. In the project to consume a ```android-drawables``` artifact, configure the POM as follows:
-```
+
+    ```
 <plugin>
   <groupId>com.github.kingamajick.admp</groupId>
   <artifactId>android-drawables-maven-plugin</artifactId>
