@@ -136,6 +136,9 @@ This will unpack the specified artifact(s) during the ```initialize``` phase.
 
 A m2e connector is available for this plugin at https://github.com/kingamajick/android-drawables-maven-plugin-m2e
 
+### Maven Site
+
+The maven site for this project can be found at http://kingamajick.github.com/android-drawables-maven-plugin/
 
 
 
