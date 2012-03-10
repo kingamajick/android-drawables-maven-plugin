@@ -74,7 +74,7 @@ public class ProcessBitmapResourcesMojo extends AbstractMojo {
 		}
 		for (Resource resource : this.resources) {
 			File resourcesDir = new File(resource.getDirectory());
-			for (String imageResolutionDirName : Constants.STATIC_IMAGE_DIR) {
+			for (String imageResolutionDirName : Constants.STATIC_IMAGE_DIRS) {
 				File imageResolutionDir = new File(resourcesDir, imageResolutionDirName);
 				if (imageResolutionDir.exists() || imageResolutionDir.isDirectory()) {
 					try {

@@ -139,34 +139,76 @@ public class UnpackBitmapResourcesMojo extends AbstractMojo {
 		}
 		for (Artifact artifact : artifacts) {
 			File artifactFile = artifact.getFile();
-			try {
-				ZipFile archiveFile = new ZipFile(artifactFile);
-				for (ZipEntry zipEntry : Collections.list(archiveFile.entries())) {
-					String entryName = zipEntry.getName();
-					if (zipEntry.isDirectory()) {
-						continue;
-					}
-					if (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(entryName))) {
-						InputStream is = archiveFile.getInputStream(zipEntry);
-						File destination = new File(outputLocation, zipEntry.getName());
-						if (destination.exists()) {
-							// TODO: Check if source and destination are different!
-							getLog().warn("Overwritting " + destination + ", this entry must appear more than once in the 'artifact-drawable' artifacts");
-						}
-						getLog().debug("Unpacking " + zipEntry.getName() + " -> " + destination);
-						FileUtils.copyStreamToFile(new RawInputStreamFacade(is), destination);
-					}
-					else {
-						getLog().debug("Ignoring entry " + entryName);
-					}
-				}
+			// If artifact is resolved using m2e it's possible that the artifact file will actually be the target location of the workspace
+			// project.
+			if (artifactFile.isFile()) {
+				unpackZipFile(outputLocation, artifactFile);
+			}
+			if (artifactFile.isDirectory()) {
+				unpackDirectory(outputLocation, artifactFile);
+			}
 
-			}
-			catch (IOException e) {
-				throw new MojoFailureException("Unable to unpack jar " + artifactFile.getAbsolutePath(), e);
-			}
 		}
 
+	}
+
+	/**
+	 * @param outputLocation
+	 * @param zipFile
+	 */
+	private void unpackZipFile(final File outputLocation, final File zipFile) throws MojoFailureException {
+		try {
+			ZipFile archiveFile = new ZipFile(zipFile);
+			for (ZipEntry zipEntry : Collections.list(archiveFile.entries())) {
+				String entryName = zipEntry.getName();
+				if (zipEntry.isDirectory()) {
+					continue;
+				}
+				if (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(entryName))) {
+					InputStream is = archiveFile.getInputStream(zipEntry);
+					File destination = new File(outputLocation, entryName);
+					if (destination.exists()) {
+						// TODO: Check if source and destination are different!
+						getLog().warn("Overwritting " + destination + ", this entry must appear more than once in the 'artifact-drawable' artifacts");
+					}
+					getLog().debug("Unpacking " + entryName + " -> " + destination);
+					FileUtils.copyStreamToFile(new RawInputStreamFacade(is), destination);
+				}
+				else {
+					getLog().debug("Ignoring entry " + entryName);
+				}
+			}
+
+		}
+		catch (IOException e) {
+			throw new MojoFailureException("Unable to unpack jar " + zipFile.getAbsolutePath(), e);
+		}
+	}
+
+	/**
+	 * @param outputLocation
+	 * @param artifactFile
+	 */
+	private void unpackDirectory(final File outputLocation, final File directory) throws MojoFailureException {
+		getLog().info("unpackingDirectory");
+		File resDir = new File(directory, "res");
+		for (String dirName : Constants.DRAWABLE_DIRS) {
+			File dir = new File(resDir, dirName);
+			if (dir.exists()) {
+				File target = new File(outputLocation, "res/" + dirName);
+				for (File drawable : dir.listFiles()) {
+					String drawableName = drawable.getName();
+					if (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(drawableName))) {
+						try {
+							FileUtils.copyFile(drawable, new File(target, drawableName));
+						}
+						catch (IOException e) {
+							throw new MojoFailureException("Unable to unpack drawable from workspace resolution " + directory.getAbsolutePath(), e);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**

@@ -91,7 +91,56 @@ public class UnpackBitmapResourcesMojoTestCase {
 		mojo.execute();
 
 		// Assert
-		File unpackedImageFile = new File(testBaseDir, "target/unpack/res/image.png");
+		File unpackedImageFile = new File(testBaseDir, "target/unpack/res/drawable-nodpi/image.png");
+		assertTrue(unpackedImageFile.exists());
+		assertEquals(TEST_PNG_MD5CHSUM, TestUtils.getChecksum(unpackedImageFile));
+	}
+
+	@Test
+	public void successfulUnpackFromWorkspaceResolved() throws Exception {
+		// Setup
+		RepositorySystem mockRepositorySystem = createMock(RepositorySystem.class);
+		ArtifactRepository mockLocalRepository = createMock(ArtifactRepository.class);
+		List<ArtifactRepository> remoteRepositories = Collections.emptyList();
+
+		File testBaseDir = new File(TEST_DIR, "workspaceResolved");
+		File unpackLocation = new File(testBaseDir, "target/unpack");
+		File drawableArtifactDir = new File(testBaseDir, "drawable-artifact");
+
+		String groupId = "org.test";
+		String artifactId = "drawable-artifact";
+		String version = "0.0.0";
+		List<DrawableArtifact> drawableArtifacts = new ArrayList<DrawableArtifact>();
+		DrawableArtifact drawableArtifact = new DrawableArtifact(groupId, artifactId, version);
+		drawableArtifacts.add(drawableArtifact);
+
+		Artifact mockArtifact = createMock(Artifact.class);
+
+		UnpackBitmapResourcesMojo mojo = new UnpackBitmapResourcesMojo();
+		Reflection.field("repositorySystem").ofType(RepositorySystem.class).in(mojo).set(mockRepositorySystem);
+		Reflection.field("localRepository").ofType(ArtifactRepository.class).in(mojo).set(mockLocalRepository);
+		Reflection.field("remoteRepositories").ofType(new TypeRef<List<ArtifactRepository>>() {}).in(mojo).set(remoteRepositories);
+		Reflection.field("unpackLocation").ofType(File.class).in(mojo).set(unpackLocation);
+		Reflection.field("drawableArtifacts").ofType(new TypeRef<List<DrawableArtifact>>() {}).in(mojo).set(drawableArtifacts);
+		mojo.setLog(this.mockLogger);
+
+		// Expectations
+		mockRepositorySystem.createArtifact(groupId, artifactId, version, "android-drawables");
+		expectLastCall().andReturn(mockArtifact);
+		mockRepositorySystem.resolve(anyObject(ArtifactResolutionRequest.class));
+		expectLastCall().andReturn(createNiceMock(ArtifactResolutionResult.class));
+		mockArtifact.isResolved();
+		expectLastCall().andReturn(true);
+		mockArtifact.getFile();
+		expectLastCall().andReturn(drawableArtifactDir).atLeastOnce();
+
+		replay(mockRepositorySystem, mockLocalRepository, mockArtifact);
+
+		// Execute
+		mojo.execute();
+
+		// Assert
+		File unpackedImageFile = new File(testBaseDir, "target/unpack/res/drawable-nodpi/image.png");
 		assertTrue(unpackedImageFile.exists());
 		assertEquals(TEST_PNG_MD5CHSUM, TestUtils.getChecksum(unpackedImageFile));
 	}

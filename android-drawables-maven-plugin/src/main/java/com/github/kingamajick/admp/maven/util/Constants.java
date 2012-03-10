@@ -36,9 +36,14 @@ public class Constants {
 	public final static String DRAWABLE_PREFIX = "drawable-";
 
 	/**
-	 * Array of directory names to copy the contents of in the root folder.
+	 * Array of directory names to copy the contents of when processing static artifacts.
 	 */
-	public final static String[] STATIC_IMAGE_DIR = { "ldpi", "mdpi", "hdpi", "xhdpi", "nodpi", "tvdpi" };
+	public final static String[] STATIC_IMAGE_DIRS = { "ldpi", "mdpi", "hdpi", "xhdpi", "nodpi", "tvdpi" };
+
+	/**
+	 * Array of each of the possible density directory names.
+	 */
+	public final static String[] DRAWABLE_DIRS = { "drawable-ldpi", "drawable-mdpi", "drawable-hdpi", "drawable-xhdpi", "drawable-nodpi", "drawable-tvdpi" };
 
 	/**
 	 * Array of acceptable file types
