@@ -149,59 +149,101 @@
 <a class="jxr_linenumber" name="139" href="#139">139</a> 		}
 <a class="jxr_linenumber" name="140" href="#140">140</a> 		<strong class="jxr_keyword">for</strong> (Artifact artifact : artifacts) {
 <a class="jxr_linenumber" name="141" href="#141">141</a> 			File artifactFile = artifact.getFile();
-<a class="jxr_linenumber" name="142" href="#142">142</a> 			<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="143" href="#143">143</a> 				ZipFile archiveFile = <strong class="jxr_keyword">new</strong> ZipFile(artifactFile);
-<a class="jxr_linenumber" name="144" href="#144">144</a> 				<strong class="jxr_keyword">for</strong> (ZipEntry zipEntry : Collections.list(archiveFile.entries())) {
-<a class="jxr_linenumber" name="145" href="#145">145</a> 					String entryName = zipEntry.getName();
-<a class="jxr_linenumber" name="146" href="#146">146</a> 					<strong class="jxr_keyword">if</strong> (zipEntry.isDirectory()) {
-<a class="jxr_linenumber" name="147" href="#147">147</a> 						<strong class="jxr_keyword">continue</strong>;
-<a class="jxr_linenumber" name="148" href="#148">148</a> 					}
-<a class="jxr_linenumber" name="149" href="#149">149</a> 					<strong class="jxr_keyword">if</strong> (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(entryName))) {
-<a class="jxr_linenumber" name="150" href="#150">150</a> 						InputStream is = archiveFile.getInputStream(zipEntry);
-<a class="jxr_linenumber" name="151" href="#151">151</a> 						File destination = <strong class="jxr_keyword">new</strong> File(outputLocation, zipEntry.getName());
-<a class="jxr_linenumber" name="152" href="#152">152</a> 						<strong class="jxr_keyword">if</strong> (destination.exists()) {
-<a class="jxr_linenumber" name="153" href="#153">153</a> 							<em class="jxr_comment">// TODO: Check if source and destination are different!</em>
-<a class="jxr_linenumber" name="154" href="#154">154</a> 							getLog().warn(<span class="jxr_string">"Overwritting "</span> + destination + <span class="jxr_string">", this entry must appear more than once in the 'artifact-drawable' artifacts"</span>);
-<a class="jxr_linenumber" name="155" href="#155">155</a> 						}
-<a class="jxr_linenumber" name="156" href="#156">156</a> 						getLog().debug(<span class="jxr_string">"Unpacking "</span> + zipEntry.getName() + <span class="jxr_string">" -&gt; "</span> + destination);
-<a class="jxr_linenumber" name="157" href="#157">157</a> 						FileUtils.copyStreamToFile(<strong class="jxr_keyword">new</strong> RawInputStreamFacade(is), destination);
-<a class="jxr_linenumber" name="158" href="#158">158</a> 					}
-<a class="jxr_linenumber" name="159" href="#159">159</a> 					<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="160" href="#160">160</a> 						getLog().debug(<span class="jxr_string">"Ignoring entry "</span> + entryName);
-<a class="jxr_linenumber" name="161" href="#161">161</a> 					}
-<a class="jxr_linenumber" name="162" href="#162">162</a> 				}
-<a class="jxr_linenumber" name="163" href="#163">163</a> 
-<a class="jxr_linenumber" name="164" href="#164">164</a> 			}
-<a class="jxr_linenumber" name="165" href="#165">165</a> 			<strong class="jxr_keyword">catch</strong> (IOException e) {
-<a class="jxr_linenumber" name="166" href="#166">166</a> 				<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to unpack jar "</span> + artifactFile.getAbsolutePath(), e);
-<a class="jxr_linenumber" name="167" href="#167">167</a> 			}
-<a class="jxr_linenumber" name="168" href="#168">168</a> 		}
-<a class="jxr_linenumber" name="169" href="#169">169</a> 
-<a class="jxr_linenumber" name="170" href="#170">170</a> 	}
-<a class="jxr_linenumber" name="171" href="#171">171</a> 
-<a class="jxr_linenumber" name="172" href="#172">172</a> 	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="173" href="#173">173</a> <em class="jxr_javadoccomment">	 * Handles a result when the artifact hasn't been resolved. This is to wrap the separate problems that can occur when resolving an</em>
-<a class="jxr_linenumber" name="174" href="#174">174</a> <em class="jxr_javadoccomment">	 * artifact, missing metadata, version range violations, version circular dependencies, missing artifacts, network/transfer errors, file</em>
-<a class="jxr_linenumber" name="175" href="#175">175</a> <em class="jxr_javadoccomment">	 * system errors: permissions. This method should be factored out once {@link ArtifactResolutionResult} wraps these issues itself.</em>
-<a class="jxr_linenumber" name="176" href="#176">176</a> <em class="jxr_javadoccomment">	 * </em>
-<a class="jxr_linenumber" name="177" href="#177">177</a> <em class="jxr_javadoccomment">	 * @param result</em>
-<a class="jxr_linenumber" name="178" href="#178">178</a> <em class="jxr_javadoccomment">	 * @throws MojoFailureException</em>
-<a class="jxr_linenumber" name="179" href="#179">179</a> <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="180" href="#180">180</a> 	<strong class="jxr_keyword">void</strong> handleNotResolved(<strong class="jxr_keyword">final</strong> Artifact artifact, <strong class="jxr_keyword">final</strong> ArtifactResolutionResult result) <strong class="jxr_keyword">throws</strong> MojoFailureException {
-<a class="jxr_linenumber" name="181" href="#181">181</a> 		<strong class="jxr_keyword">if</strong> (result.hasMissingArtifacts()) {
-<a class="jxr_linenumber" name="182" href="#182">182</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType()
-<a class="jxr_linenumber" name="183" href="#183">183</a> 					+ <span class="jxr_string">", artifact is missing"</span>);
-<a class="jxr_linenumber" name="184" href="#184">184</a> 		}
-<a class="jxr_linenumber" name="185" href="#185">185</a> 		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (result.hasExceptions()) {
-<a class="jxr_linenumber" name="186" href="#186">186</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType(), result
-<a class="jxr_linenumber" name="187" href="#187">187</a> 					.getExceptions().get(0));
-<a class="jxr_linenumber" name="188" href="#188">188</a> 		}
-<a class="jxr_linenumber" name="189" href="#189">189</a> 		<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="190" href="#190">190</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType()
-<a class="jxr_linenumber" name="191" href="#191">191</a> 					+ <span class="jxr_string">", unknown resolution issue"</span>);
-<a class="jxr_linenumber" name="192" href="#192">192</a> 		}
-<a class="jxr_linenumber" name="193" href="#193">193</a> 	}
-<a class="jxr_linenumber" name="194" href="#194">194</a> }
+<a class="jxr_linenumber" name="142" href="#142">142</a> 			<em class="jxr_comment">// If artifact is resolved using m2e it's possible that the artifact file will actually be the target location of the workspace</em>
+<a class="jxr_linenumber" name="143" href="#143">143</a> 			<em class="jxr_comment">// project.</em>
+<a class="jxr_linenumber" name="144" href="#144">144</a> 			<strong class="jxr_keyword">if</strong> (artifactFile.isFile()) {
+<a class="jxr_linenumber" name="145" href="#145">145</a> 				unpackZipFile(outputLocation, artifactFile);
+<a class="jxr_linenumber" name="146" href="#146">146</a> 			}
+<a class="jxr_linenumber" name="147" href="#147">147</a> 			<strong class="jxr_keyword">if</strong> (artifactFile.isDirectory()) {
+<a class="jxr_linenumber" name="148" href="#148">148</a> 				unpackDirectory(outputLocation, artifactFile);
+<a class="jxr_linenumber" name="149" href="#149">149</a> 			}
+<a class="jxr_linenumber" name="150" href="#150">150</a> 
+<a class="jxr_linenumber" name="151" href="#151">151</a> 		}
+<a class="jxr_linenumber" name="152" href="#152">152</a> 
+<a class="jxr_linenumber" name="153" href="#153">153</a> 	}
+<a class="jxr_linenumber" name="154" href="#154">154</a> 
+<a class="jxr_linenumber" name="155" href="#155">155</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="156" href="#156">156</a> <em class="jxr_javadoccomment">	 * @param outputLocation</em>
+<a class="jxr_linenumber" name="157" href="#157">157</a> <em class="jxr_javadoccomment">	 * @param zipFile</em>
+<a class="jxr_linenumber" name="158" href="#158">158</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="159" href="#159">159</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> unpackZipFile(<strong class="jxr_keyword">final</strong> File outputLocation, <strong class="jxr_keyword">final</strong> File zipFile) <strong class="jxr_keyword">throws</strong> MojoFailureException {
+<a class="jxr_linenumber" name="160" href="#160">160</a> 		<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="161" href="#161">161</a> 			ZipFile archiveFile = <strong class="jxr_keyword">new</strong> ZipFile(zipFile);
+<a class="jxr_linenumber" name="162" href="#162">162</a> 			<strong class="jxr_keyword">for</strong> (ZipEntry zipEntry : Collections.list(archiveFile.entries())) {
+<a class="jxr_linenumber" name="163" href="#163">163</a> 				String entryName = zipEntry.getName();
+<a class="jxr_linenumber" name="164" href="#164">164</a> 				<strong class="jxr_keyword">if</strong> (zipEntry.isDirectory()) {
+<a class="jxr_linenumber" name="165" href="#165">165</a> 					<strong class="jxr_keyword">continue</strong>;
+<a class="jxr_linenumber" name="166" href="#166">166</a> 				}
+<a class="jxr_linenumber" name="167" href="#167">167</a> 				<strong class="jxr_keyword">if</strong> (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(entryName))) {
+<a class="jxr_linenumber" name="168" href="#168">168</a> 					InputStream is = archiveFile.getInputStream(zipEntry);
+<a class="jxr_linenumber" name="169" href="#169">169</a> 					File destination = <strong class="jxr_keyword">new</strong> File(outputLocation, entryName);
+<a class="jxr_linenumber" name="170" href="#170">170</a> 					<strong class="jxr_keyword">if</strong> (destination.exists()) {
+<a class="jxr_linenumber" name="171" href="#171">171</a> 						<em class="jxr_comment">// TODO: Check if source and destination are different!</em>
+<a class="jxr_linenumber" name="172" href="#172">172</a> 						getLog().warn(<span class="jxr_string">"Overwritting "</span> + destination + <span class="jxr_string">", this entry must appear more than once in the 'artifact-drawable' artifacts"</span>);
+<a class="jxr_linenumber" name="173" href="#173">173</a> 					}
+<a class="jxr_linenumber" name="174" href="#174">174</a> 					getLog().debug(<span class="jxr_string">"Unpacking "</span> + entryName + <span class="jxr_string">" -&gt; "</span> + destination);
+<a class="jxr_linenumber" name="175" href="#175">175</a> 					FileUtils.copyStreamToFile(<strong class="jxr_keyword">new</strong> RawInputStreamFacade(is), destination);
+<a class="jxr_linenumber" name="176" href="#176">176</a> 				}
+<a class="jxr_linenumber" name="177" href="#177">177</a> 				<strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="178" href="#178">178</a> 					getLog().debug(<span class="jxr_string">"Ignoring entry "</span> + entryName);
+<a class="jxr_linenumber" name="179" href="#179">179</a> 				}
+<a class="jxr_linenumber" name="180" href="#180">180</a> 			}
+<a class="jxr_linenumber" name="181" href="#181">181</a> 
+<a class="jxr_linenumber" name="182" href="#182">182</a> 		}
+<a class="jxr_linenumber" name="183" href="#183">183</a> 		<strong class="jxr_keyword">catch</strong> (IOException e) {
+<a class="jxr_linenumber" name="184" href="#184">184</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to unpack jar "</span> + zipFile.getAbsolutePath(), e);
+<a class="jxr_linenumber" name="185" href="#185">185</a> 		}
+<a class="jxr_linenumber" name="186" href="#186">186</a> 	}
+<a class="jxr_linenumber" name="187" href="#187">187</a> 
+<a class="jxr_linenumber" name="188" href="#188">188</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="189" href="#189">189</a> <em class="jxr_javadoccomment">	 * @param outputLocation</em>
+<a class="jxr_linenumber" name="190" href="#190">190</a> <em class="jxr_javadoccomment">	 * @param artifactFile</em>
+<a class="jxr_linenumber" name="191" href="#191">191</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="192" href="#192">192</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> unpackDirectory(<strong class="jxr_keyword">final</strong> File outputLocation, <strong class="jxr_keyword">final</strong> File directory) <strong class="jxr_keyword">throws</strong> MojoFailureException {
+<a class="jxr_linenumber" name="193" href="#193">193</a> 		getLog().info(<span class="jxr_string">"unpackingDirectory"</span>);
+<a class="jxr_linenumber" name="194" href="#194">194</a> 		File resDir = <strong class="jxr_keyword">new</strong> File(directory, <span class="jxr_string">"res"</span>);
+<a class="jxr_linenumber" name="195" href="#195">195</a> 		<strong class="jxr_keyword">for</strong> (String dirName : Constants.DRAWABLE_DIRS) {
+<a class="jxr_linenumber" name="196" href="#196">196</a> 			File dir = <strong class="jxr_keyword">new</strong> File(resDir, dirName);
+<a class="jxr_linenumber" name="197" href="#197">197</a> 			<strong class="jxr_keyword">if</strong> (dir.exists()) {
+<a class="jxr_linenumber" name="198" href="#198">198</a> 				File target = <strong class="jxr_keyword">new</strong> File(outputLocation, <span class="jxr_string">"res/"</span> + dirName);
+<a class="jxr_linenumber" name="199" href="#199">199</a> 				<strong class="jxr_keyword">for</strong> (File drawable : dir.listFiles()) {
+<a class="jxr_linenumber" name="200" href="#200">200</a> 					String drawableName = drawable.getName();
+<a class="jxr_linenumber" name="201" href="#201">201</a> 					<strong class="jxr_keyword">if</strong> (Constants.IMAGE_TYPES.contains(FilenameUtils.getExtension(drawableName))) {
+<a class="jxr_linenumber" name="202" href="#202">202</a> 						<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="203" href="#203">203</a> 							FileUtils.copyFile(drawable, <strong class="jxr_keyword">new</strong> File(target, drawableName));
+<a class="jxr_linenumber" name="204" href="#204">204</a> 						}
+<a class="jxr_linenumber" name="205" href="#205">205</a> 						<strong class="jxr_keyword">catch</strong> (IOException e) {
+<a class="jxr_linenumber" name="206" href="#206">206</a> 							<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to unpack drawable from workspace resolution "</span> + directory.getAbsolutePath(), e);
+<a class="jxr_linenumber" name="207" href="#207">207</a> 						}
+<a class="jxr_linenumber" name="208" href="#208">208</a> 					}
+<a class="jxr_linenumber" name="209" href="#209">209</a> 				}
+<a class="jxr_linenumber" name="210" href="#210">210</a> 			}
+<a class="jxr_linenumber" name="211" href="#211">211</a> 		}
+<a class="jxr_linenumber" name="212" href="#212">212</a> 	}
+<a class="jxr_linenumber" name="213" href="#213">213</a> 
+<a class="jxr_linenumber" name="214" href="#214">214</a> 	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="215" href="#215">215</a> <em class="jxr_javadoccomment">	 * Handles a result when the artifact hasn't been resolved. This is to wrap the separate problems that can occur when resolving an</em>
+<a class="jxr_linenumber" name="216" href="#216">216</a> <em class="jxr_javadoccomment">	 * artifact, missing metadata, version range violations, version circular dependencies, missing artifacts, network/transfer errors, file</em>
+<a class="jxr_linenumber" name="217" href="#217">217</a> <em class="jxr_javadoccomment">	 * system errors: permissions. This method should be factored out once {@link ArtifactResolutionResult} wraps these issues itself.</em>
+<a class="jxr_linenumber" name="218" href="#218">218</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="219" href="#219">219</a> <em class="jxr_javadoccomment">	 * @param result</em>
+<a class="jxr_linenumber" name="220" href="#220">220</a> <em class="jxr_javadoccomment">	 * @throws MojoFailureException</em>
+<a class="jxr_linenumber" name="221" href="#221">221</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="222" href="#222">222</a> 	<strong class="jxr_keyword">void</strong> handleNotResolved(<strong class="jxr_keyword">final</strong> Artifact artifact, <strong class="jxr_keyword">final</strong> ArtifactResolutionResult result) <strong class="jxr_keyword">throws</strong> MojoFailureException {
+<a class="jxr_linenumber" name="223" href="#223">223</a> 		<strong class="jxr_keyword">if</strong> (result.hasMissingArtifacts()) {
+<a class="jxr_linenumber" name="224" href="#224">224</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType()
+<a class="jxr_linenumber" name="225" href="#225">225</a> 					+ <span class="jxr_string">", artifact is missing"</span>);
+<a class="jxr_linenumber" name="226" href="#226">226</a> 		}
+<a class="jxr_linenumber" name="227" href="#227">227</a> 		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (result.hasExceptions()) {
+<a class="jxr_linenumber" name="228" href="#228">228</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType(), result
+<a class="jxr_linenumber" name="229" href="#229">229</a> 					.getExceptions().get(0));
+<a class="jxr_linenumber" name="230" href="#230">230</a> 		}
+<a class="jxr_linenumber" name="231" href="#231">231</a> 		<strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="232" href="#232">232</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"Unable to resolve "</span> + artifact.getGroupId() + <span class="jxr_string">":"</span> + artifact.getArtifactId() + <span class="jxr_string">":"</span> + artifact.getVersion() + <span class="jxr_string">":"</span> + artifact.getType()
+<a class="jxr_linenumber" name="233" href="#233">233</a> 					+ <span class="jxr_string">", unknown resolution issue"</span>);
+<a class="jxr_linenumber" name="234" href="#234">234</a> 		}
+<a class="jxr_linenumber" name="235" href="#235">235</a> 	}
+<a class="jxr_linenumber" name="236" href="#236">236</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

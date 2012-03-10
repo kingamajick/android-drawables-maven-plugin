@@ -46,31 +46,36 @@
 <a class="jxr_linenumber" name="36" href="#36">36</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> String DRAWABLE_PREFIX = <span class="jxr_string">"drawable-"</span>;
 <a class="jxr_linenumber" name="37" href="#37">37</a>  
 <a class="jxr_linenumber" name="38" href="#38">38</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment">	 * Array of directory names to copy the contents of in the root folder.</em>
+<a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment">	 * Array of directory names to copy the contents of when processing static artifacts.</em>
 <a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="41" href="#41">41</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> String[] STATIC_IMAGE_DIR = { <span class="jxr_string">"ldpi"</span>, <span class="jxr_string">"mdpi"</span>, <span class="jxr_string">"hdpi"</span>, <span class="jxr_string">"xhdpi"</span>, <span class="jxr_string">"nodpi"</span>, <span class="jxr_string">"tvdpi"</span> };
+<a class="jxr_linenumber" name="41" href="#41">41</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> String[] STATIC_IMAGE_DIRS = { <span class="jxr_string">"ldpi"</span>, <span class="jxr_string">"mdpi"</span>, <span class="jxr_string">"hdpi"</span>, <span class="jxr_string">"xhdpi"</span>, <span class="jxr_string">"nodpi"</span>, <span class="jxr_string">"tvdpi"</span> };
 <a class="jxr_linenumber" name="42" href="#42">42</a>  
 <a class="jxr_linenumber" name="43" href="#43">43</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">	 * Array of acceptable file types</em>
+<a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">	 * Array of each of the possible density directory names.</em>
 <a class="jxr_linenumber" name="45" href="#45">45</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="46" href="#46">46</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; IMAGE_TYPES = Arrays.asList(<span class="jxr_string">"png"</span>, <span class="jxr_string">"jpg"</span>, <span class="jxr_string">"gif"</span>);
+<a class="jxr_linenumber" name="46" href="#46">46</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> String[] DRAWABLE_DIRS = { <span class="jxr_string">"drawable-ldpi"</span>, <span class="jxr_string">"drawable-mdpi"</span>, <span class="jxr_string">"drawable-hdpi"</span>, <span class="jxr_string">"drawable-xhdpi"</span>, <span class="jxr_string">"drawable-nodpi"</span>, <span class="jxr_string">"drawable-tvdpi"</span> };
 <a class="jxr_linenumber" name="47" href="#47">47</a>  
 <a class="jxr_linenumber" name="48" href="#48">48</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="49" href="#49">49</a>  <em class="jxr_javadoccomment">	 * SVG file extension</em>
+<a class="jxr_linenumber" name="49" href="#49">49</a>  <em class="jxr_javadoccomment">	 * Array of acceptable file types</em>
 <a class="jxr_linenumber" name="50" href="#50">50</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="51" href="#51">51</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SVG_FILE_TYPE = <span class="jxr_string">".svg"</span>;
+<a class="jxr_linenumber" name="51" href="#51">51</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; IMAGE_TYPES = Arrays.asList(<span class="jxr_string">"png"</span>, <span class="jxr_string">"jpg"</span>, <span class="jxr_string">"gif"</span>);
 <a class="jxr_linenumber" name="52" href="#52">52</a>  
 <a class="jxr_linenumber" name="53" href="#53">53</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">	 * Map of valid types prefixed mapped to the {@link ImageTranscoder} class.</em>
+<a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">	 * SVG file extension</em>
 <a class="jxr_linenumber" name="55" href="#55">55</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="56" href="#56">56</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Class&lt;? <strong class="jxr_keyword">extends</strong> ImageTranscoder&gt;&gt; VALID_TYPES = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Class&lt;? <strong class="jxr_keyword">extends</strong> ImageTranscoder&gt;&gt;();
-<a class="jxr_linenumber" name="57" href="#57">57</a>  	<em class="jxr_comment">// Init valid types map</em>
-<a class="jxr_linenumber" name="58" href="#58">58</a>  	<strong class="jxr_keyword">static</strong> {
-<a class="jxr_linenumber" name="59" href="#59">59</a>  		VALID_TYPES.put(<span class="jxr_string">"png"</span>, PNGTranscoder.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="60" href="#60">60</a>  		VALID_TYPES.put(<span class="jxr_string">"jpg"</span>, JPEGTranscoder.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="61" href="#61">61</a>  	}
-<a class="jxr_linenumber" name="62" href="#62">62</a>  
-<a class="jxr_linenumber" name="63" href="#63">63</a>  }
+<a class="jxr_linenumber" name="56" href="#56">56</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SVG_FILE_TYPE = <span class="jxr_string">".svg"</span>;
+<a class="jxr_linenumber" name="57" href="#57">57</a>  
+<a class="jxr_linenumber" name="58" href="#58">58</a>  	<em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="59" href="#59">59</a>  <em class="jxr_javadoccomment">	 * Map of valid types prefixed mapped to the {@link ImageTranscoder} class.</em>
+<a class="jxr_linenumber" name="60" href="#60">60</a>  <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="61" href="#61">61</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Class&lt;? <strong class="jxr_keyword">extends</strong> ImageTranscoder&gt;&gt; VALID_TYPES = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Class&lt;? <strong class="jxr_keyword">extends</strong> ImageTranscoder&gt;&gt;();
+<a class="jxr_linenumber" name="62" href="#62">62</a>  	<em class="jxr_comment">// Init valid types map</em>
+<a class="jxr_linenumber" name="63" href="#63">63</a>  	<strong class="jxr_keyword">static</strong> {
+<a class="jxr_linenumber" name="64" href="#64">64</a>  		VALID_TYPES.put(<span class="jxr_string">"png"</span>, PNGTranscoder.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="65" href="#65">65</a>  		VALID_TYPES.put(<span class="jxr_string">"jpg"</span>, JPEGTranscoder.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="66" href="#66">66</a>  	}
+<a class="jxr_linenumber" name="67" href="#67">67</a>  
+<a class="jxr_linenumber" name="68" href="#68">68</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
