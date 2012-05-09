@@ -80,19 +80,17 @@ The directories may contain sub folders (both for SVG resources and static resou
     <td>drawable-xhdpi</td><td>2.00</td>
   </tr>
 </table>
-If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:  
-```
-<configuration>  
-   ....  
-       <densities>  
-           <density>  
-               <name>[drawable-ldpi|drawable-mdpi|drawable-hdpi|drawable-xhdpi|drawable-nodpi|drawable-tvdpi]</name>  
+If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:     
+      <configuration>  
+      ....  
+          <densities>  
+              <density>  
+                  <name>[drawable-ldpi|drawable-mdpi|drawable-hdpi|drawable-xhdpi|drawable-nodpi|drawable-tvdpi]</name>  
                <scaleFactor></scaleFactor>  
-           <density>  
-       </densities>  
-   ....  
-</configuration>
-```
+              <density>  
+          </densities>  
+      ....  
+      </configuration>
 
 *Note:  By doing this all densities will have to be specified as the defaults will no longer be generated.*  
 *Note:  The name must be the expected folder name for that resource, i.e ```drawable-type```.*
