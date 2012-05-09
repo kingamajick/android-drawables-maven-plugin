@@ -68,32 +68,34 @@ The directories may contain sub folders (both for SVG resources and static resou
     <th>Output</th><th>Scale Factor (relative to the SVG image dimensions)</th>
   </tr>
   <tr>
-    <td>ldpi</td><td>0.75</td>
+    <td>drawable-ldpi</td><td>0.75</td>
   </tr>
   <tr>
-    <td>mdpi</td><td>1.00</td>
+    <td>drawable-mdpi</td><td>1.00</td>
   </tr>
   <tr>
-    <td>hdpi</td><td>1.50</td>
+    <td>drawable-hdpi</td><td>1.50</td>
   </tr>
   <tr>
-    <td>xhdpi</td><td>2.00</td>
+    <td>drawable-xhdpi</td><td>2.00</td>
   </tr>
 </table>
-If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:
+If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:  
+```
+<configuration>  
+   ....  
+       <densities>  
+           <density>  
+               <name>[drawable-ldpi|drawable-mdpi|drawable-hdpi|drawable-xhdpi|drawable-nodpi|drawable-tvdpi]</name>  
+               <scaleFactor></scaleFactor>  
+           <density>  
+       </densities>  
+   ....  
+</configuration>
+```
 
-        <configuration>
-        ....
-            <densities>
-                <density>
-                    <name>[ldpi|mdpi|hdpi|xhdpi|nodpi|tvdpi]</name>
-                    <scaleFactor></scaleFactor>
-                <density>
-            </densities>
-        ....
-        </configuration>
-
-Note, by doing this all densities will have to be specified as the defaults will no longer be generated.
+*Note:  By doing this all densities will have to be specified as the defaults will no longer be generated.*  
+*Note:  The name must be the expected folder name for that resource, i.e ```drawable-type```.*
 
 4. Your project is now ready to be built.
 
@@ -127,7 +129,9 @@ Note, by doing this all densities will have to be specified as the defaults will
             </executions>
         </plugin>
 
-This will unpack the specified artifact(s) during the ```initialize``` phase.
+This will unpack the specified artifact(s) during the ```initialize``` phase.  
+
+*Note: All folders will be unpack into ```${unpackLocation}/res```*
 
 ### m2e Connector
 
