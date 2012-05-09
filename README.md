@@ -59,42 +59,23 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
             |-- xhdpi
             |-- nodpi
             `-- tvdpi
-
 The directories may contain sub folders (both for SVG resources and static resources).  If this is the case, the resultant name of the file packaged in the will be generated from the directory structure.  Given ```dir1\dir2\image.svg```, the resulting image file name will be ```dir1_dir2_image.png``` (assuming ```png``` is the ```rasterizedType```).
 
-3. By default the SVG resources are rasterized at the following dimensions.
-<table>
-  <tr>
-    <th>Output</th><th>Scale Factor (relative to the SVG image dimensions)</th>
-  </tr>
-  <tr>
-    <td>drawable-ldpi</td><td>0.75</td>
-  </tr>
-  <tr>
-    <td>drawable-mdpi</td><td>1.00</td>
-  </tr>
-  <tr>
-    <td>drawable-hdpi</td><td>1.50</td>
-  </tr>
-  <tr>
-    <td>drawable-xhdpi</td><td>2.00</td>
-  </tr>
-</table>
-If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:     
-      <configuration>  
-      ....  
-          <densities>  
-              <density>  
-                  <name>[drawable-ldpi|drawable-mdpi|drawable-hdpi|drawable-xhdpi|drawable-nodpi|drawable-tvdpi]</name>  
-               <scaleFactor></scaleFactor>  
-              <density>  
-          </densities>  
-      ....  
-      </configuration>
-
+3. By default the SVG resources are rasterized at the following dimensions.  <table><tr><th>Output</th><th>Scale Factor (relative to the SVG image dimensions)</th></tr><tr><td>drawable-ldpi</td><td>0.75</td></tr><tr><td>drawable-mdpi</td><td>1.00</td></tr><tr><td>drawable-hdpi</td><td>1.50</td></tr><tr>    <td>drawable-xhdpi</td><td>2.00</td></tr></table>
+If this is not suitable, custom densities can be supplied via the plugin configuration using the following form: 
+    
+        <configuration>  
+        ....  
+            <densities>  
+                <density>  
+                    <name>[drawable-ldpi|drawable-mdpi|drawable-hdpi|drawable-xhdpi|drawable-nodpi|drawable-tvdpi]</name>  
+                 <scaleFactor></scaleFactor>  
+                <density>  
+            </densities>  
+        ....  
+        </configuration>
 *Note:  By doing this all densities will have to be specified as the defaults will no longer be generated.*  
 *Note:  The name must be the expected folder name for that resource, i.e ```drawable-type```.*
-
 4. Your project is now ready to be built.
 
 ### Consuming a android-drawables artifact
