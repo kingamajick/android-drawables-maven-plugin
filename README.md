@@ -82,15 +82,16 @@ The directories may contain sub folders (both for SVG resources and static resou
 </table>
 If this is not suitable, custom densities can be supplied via the plugin configuration using the following form:
 
-    <configuration>
-      ....
-        <densities>
-            <density>
-                <name>[ldpi|mdpi|hdpi|xhdpi|nodpi|tvdpi]</name>
-                <scaleFactor></scaleFactor>
-            <density>
-        </densities>
-    </configuration>
+        <configuration>
+        ....
+            <densities>
+                <density>
+                    <name>[ldpi|mdpi|hdpi|xhdpi|nodpi|tvdpi]</name>
+                    <scaleFactor></scaleFactor>
+                <density>
+            </densities>
+        ....
+        </configuration>
 
 Note, by doing this all densities will have to be specified as the defaults will no longer be generated.
 
