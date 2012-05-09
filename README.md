@@ -110,7 +110,7 @@ If this is not suitable, custom densities can be supplied via the plugin configu
 
 This will unpack the specified artifact(s) during the ```initialize``` phase.  
 
-*Note: All folders will be unpack into ```${unpackLocation}/res```*
+*Note: All folders will be unpacked into ```${unpackLocation}/res``` rather than ```${unpackLocation}```*
 
 ### m2e Connector
 
