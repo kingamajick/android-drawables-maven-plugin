@@ -41,6 +41,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.w3c.dom.Document;
+import org.w3c.dom.svg.SVGSVGElement;
 
 import com.github.kingamajick.admp.maven.beans.Density;
 import com.github.kingamajick.admp.maven.transcoder.TranscoderFactory;
@@ -157,8 +158,8 @@ public class RasterizeSVGMojo extends AbstractMojo {
 			try {
 				String inputURI = svgToProcess.getValue().toURI().toString();
 				Document svgDoc = this.svgDocFactory.createDocument(inputURI);
-				GraphicsNode rootGN = this.builder.build(this.context, svgDoc);
-				Rectangle2D bounds = rootGN.getBounds();
+				SVGSVGElement svgDocElement = (SVGSVGElement) svgDoc.getDocumentElement();
+				float width = svgDocElement.getWidth().getBaseVal().getValue();
 
 				for (Density density : this.densities) {
 					getLog().debug(
@@ -172,7 +173,7 @@ public class RasterizeSVGMojo extends AbstractMojo {
 					TranscoderInput input = new TranscoderInput(svgDoc);
 					TranscoderOutput output = new TranscoderOutput(os);
 
-					transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(Math.ceil(density.getScaleFactor() * bounds.getWidth())));
+					transcoder.addTranscodingHint(ImageTranscoder.KEY_WIDTH, new Float(Math.ceil(density.getScaleFactor() * width)));
 					transcoder.transcode(input, output);
 				}
 
