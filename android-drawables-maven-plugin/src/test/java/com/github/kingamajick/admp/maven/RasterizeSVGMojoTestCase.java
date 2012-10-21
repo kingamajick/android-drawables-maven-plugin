@@ -146,4 +146,52 @@ public class RasterizeSVGMojoTestCase {
 		// Execute
 		mojo.execute();
 	}
+	
+	@Test
+	public void assertScalingIsPerformedCorrectlyInBothDimensions() throws Exception {
+		// Setup
+		File testBaseDir = new File(TEST_DIR, "checkScalingCase");
+		File svgDir = new File(testBaseDir, "src/main/svg");
+		File targetDir = new File(testBaseDir, "target/classes/res");
+		File ldpiDir = new File(targetDir, "drawable-ldpi");
+		File mdpiDir = new File(targetDir, "drawable-mdpi");
+		File hdpiDir = new File(targetDir, "drawable-hdpi");
+		File xhdpiDir = new File(targetDir, "drawable-xhdpi");
+		String horizontal = "image-horizontal.png";
+		String vertical = "image-vertical.png";
+
+		RasterizeSVGMojo mojo = new RasterizeSVGMojo();
+		mojo.setLog(this.mockLogger);
+
+		Reflection.field("svgDirectory").ofType(File.class).in(mojo).set(svgDir);
+		Reflection.field("targetDir").ofType(File.class).in(mojo).set(targetDir);
+		Reflection.field("densities").ofType(List.class).in(mojo).set(new ArrayList<Density>());
+		Reflection.field("rasterizedType").ofType(String.class).in(mojo).set(PNG_TYPE);
+
+		// @formatter:off
+		PNGExpectationHolder[] expectedPNGs = {
+				createExpectation(new File(ldpiDir,  horizontal), 150, 75),
+				createExpectation(new File(mdpiDir,  horizontal), 200, 100),
+				createExpectation(new File(hdpiDir,  horizontal), 300, 150),
+				createExpectation(new File(xhdpiDir, horizontal), 400, 200),
+				
+				createExpectation(new File(ldpiDir,  vertical),  75,  150),
+				createExpectation(new File(mdpiDir,  vertical),  100, 200),
+				createExpectation(new File(hdpiDir,  vertical),  150, 300),
+				createExpectation(new File(xhdpiDir, vertical),  200, 400),
+		};
+		// @formatter:on
+
+		// Execute
+		mojo.execute();
+
+		// Assert
+		for (PNGExpectationHolder holder : expectedPNGs) {
+			assertTrue("Expected file " + holder.expectedFile.getAbsolutePath() + " does not exist.", holder.expectedFile.exists());
+			BufferedImage img = ImageIO.read(holder.expectedFile);
+			assertEquals("Width of generated PNG is " + img.getWidth() + "px, expected " + holder.expectedWidth + "px", holder.expectedWidth, img.getWidth());
+			assertEquals("Height of generated PNG is " + img.getHeight() + "px, expected " + holder.expectedHeight + "px", holder.expectedHeight, img.getHeight());
+		}
+	}
+
 }

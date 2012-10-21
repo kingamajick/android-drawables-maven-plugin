@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="200"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="image-horz.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3769">
+      <stop
+         style="stop-color:#3bf19a;stop-opacity:1;"
+         offset="0"
+         id="stop3771" />
+      <stop
+         style="stop-color:#3bf19a;stop-opacity:0;"
+         offset="1"
+         id="stop3773" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3769"
+       id="linearGradient3777"
+       x1="2.596458"
+       y1="298.48477"
+       x2="200.44421"
+       y2="-0.015311881"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99873732,0,0,0.33245754,1.9925736e-5,952.64623)" />
+    <filter
+       id="filter2991"
+       inkscape:label="filter1"
+       color-interpolation-filters="sRGB" />
+    <filter
+       id="filter2993"
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur2995"
+         stdDeviation="0.98077669902912612"
+         result="result91" />
+      <feComposite
+         id="feComposite2997"
+         in2="result91"
+         in="SourceGraphic"
+         operator="over" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3769"
+       id="linearGradient2998"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99873732,0,0,0.33245754,1.9925736e-5,952.64623)"
+       x1="2.596458"
+       y1="298.48477"
+       x2="200.44421"
+       y2="-0.015311881" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="20.100787"
+     inkscape:cy="95.325979"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1138"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showborder="true"
+     borderlayer="false"
+     inkscape:showpageshadow="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(12.317393,-852.39424)">
+    <g
+       id="g2993"
+       transform="matrix(0,1,-1,0,1040.0749,852.40744)">
+      <rect
+         y="952.65698"
+         x="0.015783679"
+         height="99.737259"
+         width="199.74747"
+         id="rect2985"
+         style="fill:url(#linearGradient2998);fill-opacity:1;stroke:none" />
+      <text
+         transform="matrix(1.9975766,0,0,1.9952541,-0.01574543,-1047.3997)"
+         sodipodi:linespacing="125%"
+         id="text2987"
+         y="1041.6786"
+         x="8.0761719"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter2993);font-family:Sans"
+         xml:space="preserve"><tspan
+           y="1041.6786"
+           x="8.0761719"
+           id="tspan2989"
+           sodipodi:role="line">SVG</tspan></text>
+    </g>
+  </g>
+</svg>
