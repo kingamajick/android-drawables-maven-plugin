@@ -1,11 +1,8 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.kingamajick.admp</groupId>
 	<artifactId>android-drawables-maven-plugin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Android Drawable Maven Plugin</name>
@@ -30,7 +27,8 @@
 		<url>http://github.com/kingamajick/android-drawables-maven-plugin/tree/${scm.branch}</url>
 		<connection>scm:git:git://github.com/kingamajick/android-drawables-maven-plugin.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/kingamajick/android-drawables-maven-plugin.git</developerConnection>
-	</scm>
+	  <tag>android-drawables-maven-plugin-1.0.0</tag>
+  </scm>
 
 	<licenses>
 		<license>
@@ -291,7 +289,7 @@
 												</goals>
 											</pluginExecutionFilter>
 											<action>
-												<ignore></ignore>
+												<ignore />
 											</action>
 										</pluginExecution>
 									</pluginExecutions>
