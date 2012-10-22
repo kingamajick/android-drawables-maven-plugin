@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.kingamajick.admp</groupId>
 	<artifactId>android-drawables-maven-plugin</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Android Drawable Maven Plugin</name>
@@ -27,7 +27,7 @@
 		<url>http://github.com/kingamajick/android-drawables-maven-plugin/tree/${scm.branch}</url>
 		<connection>scm:git:git://github.com/kingamajick/android-drawables-maven-plugin.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/kingamajick/android-drawables-maven-plugin.git</developerConnection>
-	  <tag>android-drawables-maven-plugin-1.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<licenses>
