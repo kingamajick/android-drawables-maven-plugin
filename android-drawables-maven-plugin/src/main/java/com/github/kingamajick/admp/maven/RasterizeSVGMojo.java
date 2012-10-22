@@ -15,7 +15,6 @@
  */
 package com.github.kingamajick.admp.maven;
 
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,11 +26,9 @@ import java.util.Map.Entry;
 
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.DocumentLoader;
-import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
-import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -70,7 +67,6 @@ public class RasterizeSVGMojo extends AbstractMojo {
 	private UserAgent userAgent;
 	private DocumentLoader loader;
 	private BridgeContext context;
-	private GVTBuilder builder;
 	private SAXSVGDocumentFactory svgDocFactory;
 	private TranscoderFactory transcoderFactory;
 
@@ -132,7 +128,6 @@ public class RasterizeSVGMojo extends AbstractMojo {
 		this.loader = new DocumentLoader(this.userAgent);
 		this.context = new BridgeContext(this.userAgent, this.loader);
 		this.context.setDynamicState(BridgeContext.DYNAMIC);
-		this.builder = new GVTBuilder();
 		this.svgDocFactory = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());
 		this.transcoderFactory = new TranscoderFactory();
 	}
