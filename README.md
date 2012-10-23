@@ -8,25 +8,6 @@ The **android-drawables-maven-plugin** was created to allow the generation of An
 
 Maven 3.0.3+ installed, see http://maven.apache.org/download.html
 
-### Snapshots
-
-**Currently only version supported**
-
-Snapshots of the android-drawables-maven-plugin are available from the Sonatype OSS Repository Hosting Service.  To use snapshots, add the following configuration to the pom.
-
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>oss-sonatype</id>
-            <name>oss-sonatype</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-
 ### Creating a android-drawables artifact
 
 1. Create a new maven project with a packaging type of android-drawables and add the android-drawables-maven-plugin to its build configuration.
@@ -39,7 +20,7 @@ Snapshots of the android-drawables-maven-plugin are available from the Sonatype 
                 <plugin>
                     <groupId>com.github.kingamajick.admp</groupId>
                     <artifactId>android-drawables-maven-plugin</artifactId>
-                    <version>0.0.1-SNAPSHOT</version>
+                    <version>1.0.0</version>
                     <extensions>true</extensions>
                     <configuration>
                         <rasterizedType>[png|jpg]</rasterizedType>
@@ -85,7 +66,7 @@ If this is not suitable, custom densities can be supplied via the plugin configu
         <plugin>
             <groupId>com.github.kingamajick.admp</groupId>
             <artifactId>android-drawables-maven-plugin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
             <extensions>true</extensions>
             <executions>
                 <execution>
@@ -120,7 +101,21 @@ A m2e connector is available for this plugin at https://github.com/kingamajick/a
 
 The maven site for this project can be found at http://kingamajick.github.com/android-drawables-maven-plugin/
 
+### Snapshots
 
+Snapshots of the android-drawables-maven-plugin are available from the Sonatype OSS Repository Hosting Service.  To use snapshots, add the following configuration to the pom.
+
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 
 
