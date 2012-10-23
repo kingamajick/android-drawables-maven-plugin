@@ -32,7 +32,6 @@
 	</skin>
 	<custom>
 		<fluidoSkin>
-		<profile>pre-release</profile>
 			<gitHub>
 				<projectId>kingamajick/android-drawables-maven-plugin</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
