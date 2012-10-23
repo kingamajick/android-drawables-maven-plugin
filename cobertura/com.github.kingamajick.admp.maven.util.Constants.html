@@ -96,7 +96,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * Array of directory names to copy the contents of when processing static artifacts.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String[] STATIC_IMAGE_DIRS = { <span class="string">"ldpi"</span>, <span class="string">"mdpi"</span>, <span class="string">"hdpi"</span>, <span class="string">"xhdpi"</span>, <span class="string">"nodpi"</span>, <span class="string">"tvdpi"</span> };</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String[] STATIC_IMAGE_DIRS = { <span class="string">"ldpi"</span>, <span class="string">"mdpi"</span>, <span class="string">"hdpi"</span>, <span class="string">"xhdpi"</span>, <span class="string">"nodpi"</span>, <span class="string">"tvdpi"</span> };</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;42</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;43</td>  <td class="nbHits">&nbsp;</td>
@@ -105,7 +105,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * Array of each of the possible density directory names.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;45</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;46</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String[] DRAWABLE_DIRS = { <span class="string">"drawable-ldpi"</span>, <span class="string">"drawable-mdpi"</span>, <span class="string">"drawable-hdpi"</span>, <span class="string">"drawable-xhdpi"</span>, <span class="string">"drawable-nodpi"</span>, <span class="string">"drawable-tvdpi"</span> };</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;46</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String[] DRAWABLE_DIRS = { <span class="string">"drawable-ldpi"</span>, <span class="string">"drawable-mdpi"</span>, <span class="string">"drawable-hdpi"</span>, <span class="string">"drawable-xhdpi"</span>, <span class="string">"drawable-nodpi"</span>, <span class="string">"drawable-tvdpi"</span> };</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;47</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
@@ -114,7 +114,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * Array of acceptable file types</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> List&lt;String&gt; IMAGE_TYPES = Arrays.asList(<span class="string">"png"</span>, <span class="string">"jpg"</span>, <span class="string">"gif"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> List&lt;String&gt; IMAGE_TYPES = Arrays.asList(<span class="string">"png"</span>, <span class="string">"jpg"</span>, <span class="string">"gif"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;53</td>  <td class="nbHits">&nbsp;</td>
@@ -133,20 +133,20 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * Map of valid types prefixed mapped to the {@link ImageTranscoder} class.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;String, Class&lt;? <span class="keyword">extends</span> ImageTranscoder&gt;&gt; VALID_TYPES = <span class="keyword">new</span> HashMap&lt;String, Class&lt;? <span class="keyword">extends</span> ImageTranscoder&gt;&gt;();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;String, Class&lt;? <span class="keyword">extends</span> ImageTranscoder&gt;&gt; VALID_TYPES = <span class="keyword">new</span> HashMap&lt;String, Class&lt;? <span class="keyword">extends</span> ImageTranscoder&gt;&gt;();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;62</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">// Init valid types map</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;63</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">static</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;64</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;                VALID_TYPES.put(<span class="string">"png"</span>, PNGTranscoder.<span class="keyword">class</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;65</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;                VALID_TYPES.put(<span class="string">"jpg"</span>, JPEGTranscoder.<span class="keyword">class</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;64</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;                VALID_TYPES.put(<span class="string">"png"</span>, PNGTranscoder.<span class="keyword">class</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;65</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;                VALID_TYPES.put(<span class="string">"jpg"</span>, JPEGTranscoder.<span class="keyword">class</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;68</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 10/03/12 21:29.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 23/10/12 10:41.</div>
 </body>
 </html>
